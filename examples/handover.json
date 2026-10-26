@@ -1,0 +1,8 @@
+{
+  "example": "synthetic operator handover, not adapter state or Hermes configuration",
+  "last_verified_result": "Selected checks passed. Jules diff still awaits review.",
+  "open_problem": "Review the new mocked regression test.",
+  "task_reference": "synthetic-task-001",
+  "next_action": "HQ reviews the diff and actual test output.",
+  "unknown": ["first scheduled delivery", "memory recall", "restore"]
+}

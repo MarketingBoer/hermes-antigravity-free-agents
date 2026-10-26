@@ -1,0 +1,4 @@
+{
+  "question": "Review this function. Identify one concrete failure and suggest a minimal correction with one regression case.",
+  "context": "Synthetic example: def first_item(items): return items[0]"
+}

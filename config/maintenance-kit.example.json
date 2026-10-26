@@ -1,0 +1,17 @@
+{
+  "state_dir": "${HOME}/.local/state/hermes-maintenance-kit",
+  "workspace": "${HOME}/.local/share/hermes-maintenance-kit",
+  "agy_command": ["agy"],
+  "models": {
+    "routine": "${AGY_ROUTINE_MODEL}",
+    "changed": "${AGY_CHANGE_MODEL}"
+  },
+  "components": {
+    "hq-policy": "../templates/hq-policy.md",
+    "agy-role": "../templates/maintenance-check.agent.md"
+  },
+  "checks": [
+    {"name": "hermes-cli", "argv": ["hermes", "--version"], "timeout_seconds": 12}
+  ],
+  "analysis_timeout_seconds": 105
+}

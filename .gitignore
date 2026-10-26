@@ -1,0 +1,22 @@
+# Local configuration and runtime data
+maintenance-kit.json
+*.local.json
+.env
+.env.*
+!.env.example
+state/
+workspace/
+*.log
+*.jsonl
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+.browser-pilot/
+.plugin-config/
+.Codex-dev-helper/
+.pair-programming-session.md
+.complexity-log.md
+.session-summary.md
+.todos-report.md/
+promo/
