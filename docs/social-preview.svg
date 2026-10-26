@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Hermes × Antigravity — Free AI backup for your agents</title>
+  <desc id="desc">A dark green project card with lime lettering and connected Hermes and Antigravity circles. Native CLI. Quota checks. MIT.</desc>
+  <rect width="1280" height="640" fill="#101b17"/>
+  <path d="M0 560H1280M0 80H1280M80 0V640M1200 0V640" stroke="#294035" stroke-width="1"/>
+  <text x="110" y="62" fill="#c9f879" font-family="monospace" font-size="20" letter-spacing="2">HERMES × ANTIGRAVITY</text>
+  <text x="110" y="213" fill="#f5f7eb" font-family="Georgia,serif" font-size="90">Free AI backup.</text>
+  <text x="110" y="315" fill="#c9f879" font-family="Georgia,serif" font-size="90">For your agents.</text>
+  <text x="113" y="390" fill="#aebeb1" font-family="sans-serif" font-size="26">Code reviews. Debugging. A second opinion.</text>
+  <rect x="110" y="439" width="600" height="49" rx="24" fill="#1b3024"/>
+  <text x="138" y="470" fill="#c9f879" font-family="monospace" font-size="19">NATIVE CLI  /  QUOTA CHECKS  /  MIT</text>
+  <circle cx="1000" cy="356" r="110" fill="none" stroke="#456245" stroke-width="1"/>
+  <circle cx="1000" cy="356" r="150" fill="none" stroke="#294035" stroke-width="1"/>
+  <path d="M887 279L1107 433" fill="none" stroke="#c9f879" stroke-width="3"/>
+  <circle cx="908" cy="292" r="44" fill="#c9f879"/>
+  <circle cx="1090" cy="420" r="44" fill="#c9f879"/>
+  <text x="908" y="304" text-anchor="middle" fill="#101b17" font-family="monospace" font-size="34">H</text>
+  <text x="1090" y="432" text-anchor="middle" fill="#101b17" font-family="monospace" font-size="34">A</text>
+  <text x="110" y="607" fill="#aebeb1" font-family="monospace" font-size="17">github.com/MarketingBoer/hermes-antigravity-free-agents</text>
+</svg>

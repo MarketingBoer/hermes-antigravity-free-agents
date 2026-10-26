@@ -1,4 +1,7 @@
 .gitignore
+.github/ISSUE_TEMPLATE/bug_report.yml
+.github/ISSUE_TEMPLATE/config.yml
+.github/pull_request_template.md
 .github/workflows/offline-checks.yml
 CONTRIBUTING.md
 LICENSE
@@ -11,6 +14,11 @@ docs/HERMES-AGY.md
 docs/SETUP.md
 docs/VERIFICATION.md
 docs/WORKFLOW.md
+docs/index.html
+docs/social-preview.svg
+docs/.nojekyll
+docs/robots.txt
+docs/sitemap.xml
 examples/handover.json
 examples/consultation.json
 examples/weekly-report.md

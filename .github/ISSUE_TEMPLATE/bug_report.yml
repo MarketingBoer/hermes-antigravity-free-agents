@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible adapter or setup problem using synthetic data.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Use synthetic data. Remove credentials, private prompts, customer data, and native logs before posting."
+  - type: input
+    id: versions
+    attributes:
+      label: Environment
+      description: Operating system, Python version, Hermes version, and AGY version.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide the exact command and a minimal synthetic input.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and observed behavior
+      description: Include the short adapter result. Do not attach native logs or configuration files.
+    validations:
+      required: true

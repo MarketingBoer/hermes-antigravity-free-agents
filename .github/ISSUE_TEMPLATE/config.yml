@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and workflow ideas
+    url: https://github.com/MarketingBoer/hermes-antigravity-free-agents/discussions
+    about: Ask setup questions or suggest an Antigravity workflow.
+  - name: Current free models and quotas
+    url: https://github.com/MarketingBoer/hermes-antigravity-free-agents/blob/main/docs/FREE-MODELS.md
+    about: Check dated model availability before reporting an unavailable model.

@@ -1,6 +1,20 @@
-# ⚡ Hermes × AGY — Zero-Cost Antigravity Agents in Your Hermes Workflow
+# ⚡ Hermes × Antigravity — Free AI Backup for Your Agents
 
-## Give Hermes free AI backup.
+[![Offline checks](https://github.com/MarketingBoer/hermes-antigravity-free-agents/actions/workflows/offline-checks.yml/badge.svg)](https://github.com/MarketingBoer/hermes-antigravity-free-agents/actions/workflows/offline-checks.yml)
+[![MIT license](https://img.shields.io/badge/license-MIT-c6f76b)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)](#try-the-kit-offline)
+[![Star on GitHub](https://img.shields.io/github/stars/MarketingBoer/hermes-antigravity-free-agents?style=social)](https://github.com/MarketingBoer/hermes-antigravity-free-agents/stargazers)
+
+![Hermes × Antigravity. Free AI backup for your agents. Native CLI, quota checks, MIT.](docs/social-preview.svg)
+
+**Let your Hermes agents get a second opinion through Google Antigravity's free model allowance.**
+Code reviews, debugging ideas, and independent design feedback through the official `agy` CLI.
+
+[**Get started →**](docs/HERMES-AGY.md) · [Free models & limits](docs/FREE-MODELS.md) · [Download the preview](https://github.com/MarketingBoer/hermes-antigravity-free-agents/releases/tag/v0.1.0) · [Questions & ideas](https://github.com/MarketingBoer/hermes-antigravity-free-agents/discussions)
+
+**Useful to you? [Star this repository](https://github.com/MarketingBoer/hermes-antigravity-free-agents) to help other Hermes builders find it.**
+
+## One agent. A second opinion.
 
 **Put Antigravity's free model allowance to work inside your Hermes workflow.**
 Ask HQ for a code review, a debugging hypothesis, or a second opinion.
@@ -69,6 +83,8 @@ Use Linux and Python 3.11 or newer.
 No account, credentials, dependency installation, or live agent is needed for these checks.
 
 ```sh
+git clone https://github.com/MarketingBoer/hermes-antigravity-free-agents.git
+cd hermes-antigravity-free-agents
 python3 scripts/demo.py
 python3 -m unittest discover -s tests -v
 python3 scripts/check_package.py
@@ -147,6 +163,28 @@ The kit uses supported native interfaces and does not bypass limits or subscript
 - [Optional Jules Scheduled Tasks](https://jules.google/docs/scheduled-tasks/)
 
 Independent community kit. No official affiliation is claimed.
+
+## Help other builders find it
+
+- **Star** the repository if the workflow is useful to you.
+- **Share** the [project page](https://marketingboer.github.io/hermes-antigravity-free-agents/) with another Hermes user.
+- **Ask or suggest** in [Discussions](https://github.com/MarketingBoer/hermes-antigravity-free-agents/discussions).
+- **Report a reproducible bug** through [Issues](https://github.com/MarketingBoer/hermes-antigravity-free-agents/issues/new/choose).
+- **Contribute** a small improvement using the [contribution guide](CONTRIBUTING.md).
+
+### FAQ
+
+**Is this an official Hermes or Google project?** No. This is an independent community integration.
+
+**Does it make all of Hermes free?** The kit adds no fee and uses Antigravity's free allowance.
+Your Hermes hosting and primary model have their own costs.
+
+**Is the free allowance unlimited?** No. Weekly quotas, credit settings, and model availability apply.
+See the [dated model guide](docs/FREE-MODELS.md).
+
+**Does it replace Hermes' model provider?** No. Hermes calls the native Antigravity CLI for one selected consultation.
+
+**Do I need Jules?** No. Jules is optional for the separate maintenance workflow.
 
 ## License
 
