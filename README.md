@@ -1,4 +1,4 @@
-# Hermes × AGY
+# Hermes × AGY free agents
 
 ## Give Hermes free AI backup.
 
