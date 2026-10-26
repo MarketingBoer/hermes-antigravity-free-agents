@@ -1,4 +1,4 @@
-# Hermes × AGY free agents
+# ⚡ Hermes × AGY — Zero-Cost Antigravity Agents in Your Hermes Workflow
 
 ## Give Hermes free AI backup.
 
