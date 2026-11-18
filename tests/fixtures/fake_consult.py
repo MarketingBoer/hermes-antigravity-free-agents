@@ -8,12 +8,20 @@ import sys
 control = Path(os.environ['CONSULT_FIXTURE_CONTROL'])
 settings = json.loads(control.read_text())
 args = sys.argv[1:]
-kind = 'models' if args == ['models'] else 'usage' if '/usage' in args else 'analysis'
+kind = ('models' if args == ['models'] else 'usage' if '/usage' in args
+        else 'agents' if '/agents' in args else 'analysis')
 prompt = sys.stdin.read() if kind == 'analysis' else ''
 with control.with_suffix('.calls').open('a') as stream:
     stream.write(json.dumps({'kind': kind, 'args': args, 'prompt': prompt}) + '\n')
 mode = settings.get('mode', 'ok')
-if kind == 'models':
+if kind == 'agents':
+    # The native agent catalog uses no model tokens.
+    if mode == 'agents-fails':
+        raise SystemExit(7)
+    listed = [] if mode == 'agent-missing' else ['hermes-consultant']
+    print(json.dumps({'status': 'SUCCESS', 'usage': {'total_tokens': 0},
+                      'command': {'name': 'agents', 'data': {'agents': listed}}}))
+elif kind == 'models':
     print('gemini-fixture-low\tSynthetic Gemini')
     print('claude-fixture\tSynthetic Claude')
 elif kind == 'usage':

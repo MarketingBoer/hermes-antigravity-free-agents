@@ -1,6 +1,6 @@
 ---
 name: agy-consult
-description: Use when Hermes needs free AGY advice, an Opus or Sonnet second opinion, or a focused Antigravity review.
+description: Use when Hermes needs free AGY advice, a Gemini Flash second opinion, or a focused Antigravity review.
 ---
 # Ask AGY from Hermes
 
@@ -41,13 +41,14 @@ result = subprocess.run(
 print(result.stdout)
 ```
 
-The adapter checks the native credit setting, model availability, and remaining quota before one analysis attempt.
+The adapter checks the native credit setting, role discovery, model availability, and remaining quota before one analysis attempt.
 It requests the dedicated `hermes-consultant` role.
 It rejects observed tools, helpers, model mismatch, empty output, and missing token evidence.
 These checks do not prove tool isolation, answer quality, or subscription eligibility.
 
 ## Stop conditions
 
+If AGY does not list the role, report `agent-not-discovered`. The operator reinstalls the role file.
 If the model disappeared, report `model-unavailable`.
 If quota is empty or unknown, report the blockage.
 If a call fails, do not start an automatic retry or model switch.

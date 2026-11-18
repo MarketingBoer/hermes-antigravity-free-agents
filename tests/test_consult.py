@@ -44,7 +44,7 @@ class ConsultTests(unittest.TestCase):
         self.assertEqual(receipt['status'], 'ok')
         self.assertEqual(receipt['model'], 'gemini-fixture-low')
         self.assertEqual(receipt['total_tokens'], 24)
-        self.assertEqual([call['kind'] for call in self.calls()], ['models', 'usage', 'analysis'])
+        self.assertEqual([call['kind'] for call in self.calls()], ['agents', 'models', 'usage', 'analysis'])
         analysis = self.calls()[-1]
         self.assertNotIn('--dangerously-skip-permissions', analysis['args'])
         self.assertNotIn('--effort', analysis['args'])
@@ -55,7 +55,16 @@ class ConsultTests(unittest.TestCase):
         run = self.execute(model='claude-unavailable')
         self.assertEqual(run.returncode, 2)
         self.assertEqual(json.loads(run.stdout)['reason'], 'model-unavailable')
-        self.assertEqual([call['kind'] for call in self.calls()], ['models'])
+        self.assertEqual([call['kind'] for call in self.calls()], ['agents', 'models'])
+
+    def test_undiscovered_role_starts_no_quota_check_or_inference(self):
+        for mode in ('agent-missing', 'agents-fails'):
+            with self.subTest(mode=mode):
+                before = len(self.calls())
+                run = self.execute(mode)
+                self.assertEqual(run.returncode, 2)
+                self.assertEqual(json.loads(run.stdout)['reason'], 'agent-not-discovered')
+                self.assertEqual([call['kind'] for call in self.calls()[before:]], ['agents'])
 
     def test_exhausted_or_unknown_quota_starts_no_inference(self):
         for mode in ('empty-quota', 'usage-malformed'):

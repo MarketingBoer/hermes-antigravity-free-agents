@@ -54,13 +54,28 @@ class WeeklyTests(unittest.TestCase):
         state = self.state()
         self.assertEqual(state['status'], 'ok')
         self.assertTrue(state['fingerprints'])
-        call = next(c for c in self.calls() if not c['usage'])
+        call = next(c for c in self.calls() if c['kind'] == 'analysis')
         self.assertNotIn(self.component.read_text(), call['prompt'])
         self.assertNotIn(str(self.component), call['prompt'])
         self.assertNotIn(state['fingerprints']['team'], call['prompt'])
         self.assertIn('fixture-routine', call['argv'])
         self.assertNotIn('--effort', call['argv'])
         self.assertEqual((self.root / 'state/state.json').stat().st_mode & 0o777, 0o600)
+        # The token-free catalog check runs before quota or model use.
+        self.assertEqual([c['kind'] for c in self.calls()], ['agents', 'usage', 'analysis', 'usage'])
+        self.assertIs(state['agent_listed'], True)
+
+    def test_undiscovered_agent_blocks_before_quota_or_analysis(self):
+        for mode in ('agent-missing', 'agents-fails'):
+            with self.subTest(mode=mode):
+                before = len(self.calls())
+                self.assertEqual(self.execute(mode).returncode, 0)
+                state = self.state()
+                self.assertEqual(state['status'], 'blocked')
+                self.assertEqual(state['open_problem'], 'agy-agent-missing')
+                self.assertIs(state['agent_listed'], False)
+                self.assertNotIn('fingerprints', state)
+                self.assertEqual([c['kind'] for c in self.calls()[before:]], ['agents'])
 
     def test_saved_report_and_changes_select_changed_model(self):
         self.execute()
@@ -71,7 +86,7 @@ class WeeklyTests(unittest.TestCase):
         self.assertEqual(state['changed_components'], ['team'])
         self.assertEqual(state['model'], 'fixture-changed')
         self.assertEqual(state['resumed_from'], old['started_at'])
-        call = [c for c in self.calls() if not c['usage']][-1]
+        call = [c for c in self.calls() if c['kind'] == 'analysis'][-1]
         content = json.loads(call['prompt'])['message']['content']
         supplied = json.loads(content.split('\n', 1)[1])
         self.assertEqual(supplied['previous_report'], old['last_successful_report'])
@@ -86,12 +101,12 @@ class WeeklyTests(unittest.TestCase):
                 self.assertEqual(self.execute(mode).returncode, 0)
                 self.assertEqual(self.state()['status'], 'blocked')
                 self.assertEqual(self.state()['fingerprints'], old)
-                self.assertEqual(sum(not c['usage'] for c in self.calls()[before:]), 1)
+                self.assertEqual(sum(c['kind'] == 'analysis' for c in self.calls()[before:]), 1)
 
     def test_failed_usage_never_starts_analysis(self):
         self.assertEqual(self.execute('usage-fails').returncode, 0)
         self.assertEqual(self.state()['status'], 'blocked')
-        self.assertTrue(all(c['usage'] for c in self.calls()))
+        self.assertNotIn('analysis', [c['kind'] for c in self.calls()])
 
     def test_failed_usage_clears_previous_analysis_metadata(self):
         self.execute()
@@ -121,7 +136,7 @@ class WeeklyTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         self.assertEqual(self.state()['status'], 'blocked')
         self.assertNotIn('fingerprints', self.state())
-        self.assertEqual(sum(not c['usage'] for c in self.calls()), 1)
+        self.assertEqual(sum(c['kind'] == 'analysis' for c in self.calls()), 1)
 
     def test_corrupt_state_is_not_overwritten(self):
         state = self.root / 'state'

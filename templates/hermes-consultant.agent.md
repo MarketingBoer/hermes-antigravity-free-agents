@@ -7,6 +7,8 @@ subagent: false
 model: inherit
 commandExecutionPolicy: off
 ---
+# System Prompt
+
 HQ supplies one question and selected context.
 Use no tools.
 Do not create helpers.

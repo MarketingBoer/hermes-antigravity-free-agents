@@ -57,6 +57,15 @@ class PackageTests(unittest.TestCase):
         (self.root / 'PUBLIC_FILES.txt').write_text('PUBLIC_FILES.txt\n../outside.md\n')
         self.assertNotEqual(self.check().returncode, 0)
 
+    def test_agent_templates_follow_documented_layout(self):
+        # AGY's custom-agent example puts a "# System Prompt" section after the YAML front matter.
+        for path in sorted((ROOT / 'templates').glob('*.agent.md')):
+            with self.subTest(template=path.name):
+                text = path.read_text(encoding='utf-8')
+                self.assertTrue(text.startswith('---\n'))
+                body = text.split('\n---\n', 1)[1]
+                self.assertTrue(body.startswith('# System Prompt\n'))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,7 +1,7 @@
 # Give Hermes access to free AGY model advice
 
 The operator installs AGY and signs in through its official flow.
-The operator uses the free Individual plan for free-tier execution.
+The operator uses Antigravity's free plan for free-tier execution.
 Read [free models and quota](FREE-MODELS.md) before selecting a model.
 
 This connection uses Hermes' existing terminal tool to call the native AGY CLI.
@@ -12,9 +12,12 @@ It does not replace Hermes' primary model or copy AGY credentials into Hermes.
 
 Choose an absolute workspace path outside private source and memory directories.
 Create `.agents/agents/hermes-consultant/` inside that workspace.
-Copy `templates/hermes-consultant.agent.md` to its `agent.md` file.
+Copy `templates/hermes-consultant.agent.md` to its `agent.md` file as a regular file, not a symlink.
+The adapter rejects a symlinked role.
+The template follows the layout of AGY's official custom-agent example, with a `# System Prompt` section.
 Run `agy agents` from the workspace.
 Check that `hermes-consultant` appears.
+The adapter repeats this check before every consultation. The catalog query uses no model tokens.
 
 The role requests no tools and no helpers.
 The adapter rejects observed actions after execution.
@@ -44,8 +47,9 @@ Unlike the weekly summary, a consultation sends the supplied context text to AGY
 Review and minimize that context before execution.
 
 The adapter checks that native credit overages are off.
-It checks the current model list and the selected quota group.
-It starts one analysis only when both checks pass.
+It checks that AGY lists the `hermes-consultant` role, then the current model list and the selected quota group.
+It starts one analysis only when all checks pass.
+A role that AGY does not list blocks with `agent-not-discovered` before any quota or model use.
 It uses the explicit model and the `hermes-consultant` role.
 It never switches models after a failure.
 
@@ -83,7 +87,7 @@ Example requests after installation:
 
 > Ask free AGY Flash to review this function. Give me the first reproducible bug and one regression case.
 
-> Ask the currently available free Opus model for a second opinion on this architecture. Use only the selected design excerpt.
+> Ask AGY Flash High for a second opinion on this architecture. Use only the selected design excerpt.
 
 > Ask AGY to explain this sanitized failure trace. Mark assumptions and propose one next check.
 

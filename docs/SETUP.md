@@ -68,11 +68,14 @@ Validation checks structure and values. It does not test file readability, authe
 
 Create the configured workspace directory.
 Create `.agents/agents/maintenance-check/` inside that directory.
-Copy `templates/maintenance-check.agent.md` to its `agent.md` file.
+Copy `templates/maintenance-check.agent.md` to its `agent.md` file as a regular file, not a symlink.
+The template follows the layout of AGY's official custom-agent example, with a `# System Prompt` section.
 Do not copy private instructions, memory, transcripts, or source repositories into the workspace.
 
 Check agent discovery from that workspace with the installed `agy agents` command.
 The expected role name is `maintenance-check`.
+The weekly adapter repeats this check through AGY's agent catalog before quota or model use.
+That catalog query uses no model tokens. A missing role blocks the run as `agy-agent-missing`.
 If discovery differs, stop and consult your installed version's official agent documentation.
 Do not substitute a general-purpose agent silently.
 

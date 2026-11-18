@@ -9,10 +9,19 @@ import time
 control = Path(sys.argv[1])
 settings = json.loads(control.read_text())
 usage = '/usage' in sys.argv
-prompt = '' if usage else sys.stdin.read()
+kind = 'usage' if usage else 'agents' if '/agents' in sys.argv else 'analysis'
+prompt = sys.stdin.read() if kind == 'analysis' else ''
 with control.with_suffix('.calls').open('a') as stream:
-    stream.write(json.dumps({'usage': usage, 'argv': sys.argv[2:], 'prompt': prompt}) + '\n')
+    stream.write(json.dumps({'kind': kind, 'usage': usage, 'argv': sys.argv[2:], 'prompt': prompt}) + '\n')
 mode = settings.get('mode', 'ok')
+if kind == 'agents':
+    # The native agent catalog uses no model tokens.
+    if mode == 'agents-fails':
+        raise SystemExit(7)
+    listed = [] if mode == 'agent-missing' else ['maintenance-check']
+    print(json.dumps({'status': 'SUCCESS', 'usage': {'total_tokens': 0},
+                      'command': {'name': 'agents', 'data': {'agents': listed}}}))
+    raise SystemExit(0)
 if usage:
     print('{}')
     raise SystemExit(7 if mode == 'usage-fails' else 0)

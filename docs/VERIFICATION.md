@@ -1,6 +1,6 @@
 # Verification record
 
-Package review date: 2026-10-26.
+Package review date: 2026-11-18 (v0.2.0). Previous review: 2026-10-26 (v0.1.0).
 This record describes observed results and remaining limits.
 It is not a product certification or a claim about other accounts.
 
@@ -13,7 +13,7 @@ The hosted test matrix covers Python 3.11 and 3.12. Inspect its Actions result s
 No package installation is required. Only the Python standard library is imported.
 
 The test suite runs local child processes with a fake AGY command and synthetic data.
-Result: 30 tests passed on local Python 3.12.
+Result: 33 tests passed on local Python 3.12.
 The two-round demo and the selected-file privacy check also passed.
 The consultation tests exercise the real wrapper with a synthetic native CLI process.
 They cover live model-list selection, separate quota groups, credit-setting checks, and blocked results without retries.
@@ -27,6 +27,8 @@ It checks these behaviors:
 - The next run receives the previous successful report.
 - Empty, malformed, oversized, verbose, or wrong-type answers keep the prior baseline.
 - Reported tool use blocks acceptance.
+- A role that AGY does not list, or a failed catalog query, starts no quota check or analysis.
+- Both agent templates use the `# System Prompt` section from AGY's official custom-agent example.
 - A failed usage query starts no analysis.
 - A failed usage query clears previous per-run analysis metadata.
 - Excessive model output terminates the local process group during reading.
@@ -41,7 +43,18 @@ It checks these behaviors:
 - Package selection rejects missing files, unknown files, symlinks, and parent-path entries.
 - Synthetic privacy leaks trigger the checker without echoing their contents.
 
-## On-demand consultation: real AGY smoke test
+## v0.2.0: AGY 1.5.9 role discovery
+
+On 2026-11-18 the maintainer queried the native agent catalog with AGY 1.5.9 in an existing workspace:
+`agy --output-format json --print-timeout 15s -p /agents`.
+The response reported zero model tokens and listed the installed role.
+The new parser accepted that real response for the listed role.
+It rejected an unlisted role name and non-JSON text.
+The workspace from the v0.1.0 smoke test, with the v0.1.0 role and no `# System Prompt` heading, was also listed by AGY 1.5.9 with zero model tokens.
+AGY's documentation describes that heading as an optional way to organize instructions. The templates now follow its example.
+This release did not run a new model consultation.
+
+## On-demand consultation: real AGY smoke test (v0.1.0)
 
 Release preparation ran one synthetic code-review question through `scripts/consult.py` and the native AGY 1.4.7 CLI.
 The explicit model was `claude-opus-4-6-thinking`.
@@ -58,8 +71,8 @@ This run proves one native adapter invocation, not model correctness or invoice 
 The optional Hermes skill was reviewed through a separate instruction-following scenario.
 It was not installed into a live Hermes profile or exercised by a real HQ turn.
 
-The [free model guide](FREE-MODELS.md) records the official pricing and availability sources checked on 2026-10-26.
-Current third-party models have an announced removal date of 2026-11-02.
+The [free model guide](FREE-MODELS.md) records the official pricing and availability sources checked on 2026-11-18.
+The three third-party free-tier models are marked for removal on 2026-11-18. Google moved that date from 2026-11-02.
 This package makes no continuing availability promise for them.
 
 ## Public offline CI

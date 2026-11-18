@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import sys
 
-from weekly import run
+from weekly import agent_listed, run
 
 MAX_INPUT = 24000
 
@@ -76,6 +76,10 @@ def consult(args, raw):
     settings_path = Path.home() / '.gemini/antigravity-cli/settings.json'
     settings = json.loads(settings_path.read_text(encoding='utf-8')) if settings_path.exists() else {}
     require(isinstance(settings, dict) and settings.get('useG1Credits', False) is False, 'credit-overages-enabled-or-unknown')
+    # AGY silently ignores an agent file it cannot discover. This catalog query uses no model tokens.
+    code, catalog = run([args.agy, '--output-format', 'json', '--print-timeout', '15s', '-p', '/agents'],
+                        workspace, 25, capture=True)
+    require(code == 0 and agent_listed(catalog, 'hermes-consultant'), 'agent-not-discovered')
     code, models = run([args.agy, 'models'], workspace, 20, capture=True)
     require(code == 0, 'model-list-failed')
     available = {line.split()[0] for line in models.splitlines() if line.strip()}

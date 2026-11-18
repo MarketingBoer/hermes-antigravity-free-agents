@@ -7,6 +7,8 @@ subagent: false
 model: inherit
 commandExecutionPolicy: off
 ---
+# System Prompt
+
 The caller supplies all evidence in the prompt.
 Use no tools.
 Do not create helpers.

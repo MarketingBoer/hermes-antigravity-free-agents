@@ -10,9 +10,17 @@
 **Let your Hermes agents get a second opinion through Google Antigravity's free model allowance.**
 Code reviews, debugging ideas, and independent design feedback through the official `agy` CLI.
 
-[**Get started →**](docs/HERMES-AGY.md) · [Free models & limits](docs/FREE-MODELS.md) · [Download the preview](https://github.com/MarketingBoer/hermes-antigravity-free-agents/releases/tag/v0.1.0) · [Questions & ideas](https://github.com/MarketingBoer/hermes-antigravity-free-agents/discussions)
+[**Get started →**](docs/HERMES-AGY.md) · [Free models & limits](docs/FREE-MODELS.md) · [Latest release](https://github.com/MarketingBoer/hermes-antigravity-free-agents/releases/latest) · [Questions & ideas](https://github.com/MarketingBoer/hermes-antigravity-free-agents/discussions)
 
 **Useful to you? [Star this repository](https://github.com/MarketingBoer/hermes-antigravity-free-agents) to help other Hermes builders find it.**
+
+### New in v0.2.0
+
+- **A token-free role check.** Before any quota or model use, the adapters confirm that AGY lists the role, and stop with a clear reason if it does not.
+- **Free models rechecked on 18 November 2026.** Gemini 3.8 Flash is the free choice now that the third-party models leave the free tier.
+- **Templates in AGY's official agent layout**, with a `# System Prompt` section. Roles from v0.1.0 keep working.
+
+Upgrading from v0.1.0? See the [changelog](CHANGELOG.md).
 
 ## One agent. A second opinion.
 
@@ -23,7 +31,7 @@ HQ gets the answer back and keeps control of the work.
 
 **No separate model API key. No paid AGY subscription required for the free tier. No fee from this kit.**
 
-> Ask free Opus to challenge this design.
+> Ask Flash High to challenge this design.
 >
 > Have Flash find the first bug in this function.
 >
@@ -32,22 +40,20 @@ HQ gets the answer back and keeps control of the work.
 These are example requests after you install the optional Hermes skill.
 The kit connects Hermes to the official AGY CLI. It does not replace Hermes' own primary model.
 
-### Free models, checked 26 October 2026
+### Free models, checked 18 November 2026
 
-| Available in the free tier | Use it for |
+| Gemini 3.8 Flash level | Use it for |
 | --- | --- |
-| **Gemini 3.8 Flash**, Low / Medium / High | Focused questions, first reviews, and routine summaries |
-| **Claude Opus 4.6 Thinking** | An independent architecture or debugging opinion |
-| **Claude Sonnet 4.6 Thinking** | A focused code review or test proposal |
-| **GPT-OSS 120B** | Another model's view on a concrete question |
+| **Flash Low** | A short explanation or a routine evidence summary |
+| **Flash Medium** | A first code review or a regression-test idea |
+| **Flash High** | An independent design opinion or a hard debugging question |
 
-**The Opus 4.6, Sonnet 4.6, and GPT-OSS entries are scheduled for removal on 2 November 2026.**
-Google's [current model table](https://antigravity.google/docs/models) lists that date.
+Google's [current model table](https://antigravity.google/docs/models) marks Claude Opus 4.6, Claude Sonnet 4.6, and GPT-OSS 120B for removal from the free tier on **18 November 2026**.
 The adapter checks your live model list before every consultation.
 Use the models your free account actually offers today.
 The suggested uses above are workflow choices, not benchmark results.
 
-Google lists the Individual plan at **[$0/month](https://antigravity.google/pricing)** with a weekly allowance.
+Google's [pricing page](https://antigravity.google/pricing) offers Antigravity **without a subscription plan**, with a baseline quota that refreshes weekly.
 Read [what is free, current models, and quota rules](docs/FREE-MODELS.md).
 Free access has usage limits. Paid credit overages are optional and must stay off for quota-only use.
 
@@ -60,7 +66,7 @@ You: Ask AGY to review this function.
        one selected task
                 |
          consult.py
-     live models + quota check
+  role + live models + quota check
                 |
        official AGY CLI
        your existing login
@@ -74,7 +80,7 @@ You: Ask AGY to review this function.
 
 The on-demand adapter sends one question and the context you explicitly supply.
 It returns a JSON receipt with the model, response, token count, and pre-run quota fraction.
-It stops if credit overages are enabled, the model disappears, or quota is empty or unknown.
+It stops if credit overages are enabled, AGY does not list the role, the model disappears, or quota is empty or unknown.
 It makes one analysis attempt. It does not buy credits or switch providers after failure.
 
 ## Try the kit offline
@@ -150,7 +156,7 @@ Use a clean workspace and selected sanitized context.
 A model answer and a successful response status do not prove that a fix works.
 HQ still checks evidence before changes, merge, or deployment.
 
-The Individual tier provides free AGY usage within its allowance.
+The free plan provides AGY usage within its weekly allowance.
 The adapter checks the native credit setting. It does not attest your subscription or reserve quota.
 Your existing Hermes hosting and primary model remain separate.
 Availability and weekly limits can change.
